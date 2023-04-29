@@ -1,4 +1,4 @@
-package com.example.punkapi.ui.molecules
+package com.example.punkapi.ui.designsystem.molecules
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth

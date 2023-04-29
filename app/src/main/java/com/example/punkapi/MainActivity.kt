@@ -9,8 +9,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.punkapi.ui.molecules.AppTopBar
-import com.example.punkapi.ui.organism.HomeScreen
+import com.example.punkapi.ui.designsystem.molecules.AppTopBar
+import com.example.punkapi.ui.designsystem.organism.HomeScreen
 import com.example.punkapi.ui.theme.BeerBoxTheme
 import dagger.hilt.android.AndroidEntryPoint
 

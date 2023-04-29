@@ -1,4 +1,4 @@
-package com.example.punkapi.ui.organism
+package com.example.punkapi.ui.designsystem.organism
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,11 +12,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.punkapi.models.Beer
 import com.example.punkapi.ui.BeerItemPreview
-import com.example.punkapi.ui.molecules.BeerList
-import com.example.punkapi.ui.molecules.PromoBanner
-import com.example.punkapi.ui.molecules.SearchBar
+import com.example.punkapi.ui.designsystem.molecules.BeerList
+import com.example.punkapi.ui.designsystem.molecules.PromoBanner
+import com.example.punkapi.ui.designsystem.molecules.SearchBar
 import com.example.punkapi.ui.theme.BeerBoxTheme
-import com.example.punkapi.viewmodels.BeersViewModel
+import com.example.punkapi.ui.viewmodel.BeersViewModel
 
 @Composable
 fun HomeScreen(

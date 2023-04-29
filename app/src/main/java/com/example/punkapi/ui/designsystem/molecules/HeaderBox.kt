@@ -1,4 +1,4 @@
-package com.example.punkapi.ui.atoms
+package com.example.punkapi.ui.designsystem.molecules
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
