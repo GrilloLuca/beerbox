@@ -2,14 +2,18 @@ package com.example.punkapi.ui.designsystem.molecules
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,7 +30,11 @@ import com.example.punkapi.ui.theme.BeerBoxTheme
 fun BeerItem(beer: Beer) {
 
     Row(
-        modifier = Modifier.fillMaxWidth()
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .height(IntrinsicSize.Max)
     ) {
 
         val model = ImageRequest.Builder(LocalContext.current)
@@ -39,14 +47,18 @@ fun BeerItem(beer: Beer) {
 
         AsyncImage(
             modifier = Modifier
-                .fillMaxWidth(0.2f)
-                .padding(horizontal =  20.dp),
+                .height(150.dp)
+                .weight(1f),
             model = model.build(),
-            contentScale = ContentScale.Crop,
             contentDescription = null
         )
 
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Column(
+            modifier = Modifier.weight(4f),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             Text(
                 text = beer.name,
                 style = MaterialTheme.typography.titleMedium,
@@ -65,7 +77,7 @@ fun BeerItem(beer: Beer) {
             Text(
                 modifier = Modifier.padding(vertical = 4.dp),
                 text = "MORE INFO",
-                color = MaterialTheme.colorScheme.secondary
+                color = MaterialTheme.colorScheme.primary
             )
         }
     }

@@ -29,7 +29,7 @@ import com.example.punkapi.ui.theme.BeerBoxTheme
 fun PromoBanner() {
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondary,
+            containerColor = MaterialTheme.colorScheme.primary,
         ),
         modifier = Modifier
     ) {
