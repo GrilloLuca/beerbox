@@ -19,6 +19,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.punkapi.models.Beer
 import com.example.punkapi.ui.BeerItemPreview
+import com.example.punkapi.ui.designsystem.atoms.Loader
 import com.example.punkapi.ui.designsystem.molecules.BeerList
 import com.example.punkapi.ui.designsystem.molecules.PromoBanner
 import com.example.punkapi.ui.designsystem.molecules.SearchBar
@@ -53,12 +54,11 @@ fun HomeScreenUI(
 
         Box(modifier = Modifier.fillMaxSize()) {
             beers?.let {
-                if(beers.loadState.refresh is LoadState.Loading) {
-                    CircularProgressIndicator(
+                when (it.loadState.refresh) {
+                    is LoadState.Loading -> Loader(
                         modifier = Modifier.align(Alignment.Center)
                     )
-                } else {
-                    BeerList(beers = beers)
+                    else -> BeerList(beers = it)
                 }
             }
         }
