@@ -4,12 +4,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.punkapi.models.Beer
 import com.example.punkapi.ui.BeerItemPreview
 import com.example.punkapi.ui.designsystem.molecules.BeerList
@@ -23,7 +24,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: BeersViewModel = viewModel(),
 ) {
-    val beers: List<Beer>? = viewModel.beers.observeAsState().value
+    val beers = viewModel.beers.collectAsLazyPagingItems()
 
     HomeScreenUI(
         modifier = modifier,
@@ -33,7 +34,7 @@ fun HomeScreen(
 @Composable
 fun HomeScreenUI(
     modifier: Modifier = Modifier,
-    beers: List<Beer>? = null,
+    beers: LazyPagingItems<Beer>? = null,
 ) {
 
     Column(
@@ -44,7 +45,7 @@ fun HomeScreenUI(
         PromoBanner()
 
         beers?.let {
-            BeerList(beers = it)
+            BeerList(beers = beers)
         }
     }
 }
@@ -55,8 +56,8 @@ private fun HomeScreenPreview(
     @PreviewParameter(BeerItemPreview::class) beers: List<Beer>
 ) {
     BeerBoxTheme {
-        HomeScreenUI(
-            beers = beers
-        )
+//        HomeScreenUI(
+//            beers = LazyPagingItems(beers)
+//        )
     }
 }

@@ -4,22 +4,22 @@ import com.example.punkapi.api.PunkApi
 import com.example.punkapi.models.Beer
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 import javax.inject.Inject
 
 class BeersRepository @Inject constructor(private val api: PunkApi): RepositoryContract {
 
-
-    override fun getBeers(): Flow<Resource<List<Beer>>> = flow {
+    override suspend fun getBeers(page: Int, size: Int): Resource<List<Beer>> {
 
         val response = api.getBeers(
-            page = 1,
-            per_page = 25
+            page = page,
+            per_page = size
         )
 
-        if(response.isSuccessful) {
-            emit(Resource.Success(response.body()))
+        return if(response.isSuccessful) {
+            Resource.Success(response.body())
         } else {
-            emit(Resource.Error(response.errorBody()))
+            Resource.Error(response.errorBody())
         }
     }
 }

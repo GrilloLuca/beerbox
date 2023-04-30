@@ -1,8 +1,8 @@
 package com.example.punkapi.api.repo
 
 import com.example.punkapi.models.Beer
-import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 
 interface RepositoryContract {
-    fun getBeers(): Flow<Resource<List<Beer>>>
+    suspend fun getBeers(page: Int, size: Int): Resource<List<Beer>>
 }

@@ -2,6 +2,7 @@ package com.example.punkapi.di
 
 import com.example.punkapi.BuildConfig
 import com.example.punkapi.api.PunkApi
+import com.example.punkapi.api.datasource.PagingDataSource
 import com.example.punkapi.api.repo.BeersRepository
 import com.example.punkapi.api.repo.RepositoryContract
 import dagger.Module
@@ -18,9 +19,13 @@ object ApiModule {
         return PunkApi.create(BuildConfig.PUNK_API_BASE_URL)
     }
 
-
     @Provides
     fun provideRepository(api: PunkApi): RepositoryContract {
         return BeersRepository(api)
+    }
+
+    @Provides
+    fun providePagingDataSource(repo: RepositoryContract): PagingDataSource {
+        return PagingDataSource(repo)
     }
 }
