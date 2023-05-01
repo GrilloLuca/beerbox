@@ -33,8 +33,8 @@ fun FilterRow(
                 text = filter,
                 selected = selected == idx
             ) {
-                selected = idx
-                onClick.invoke(filter)
+                selected = if(selected == idx) null else idx
+                onClick.invoke(if(selected == null) "" else filter)
             }
         }
     }

@@ -20,11 +20,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.punkapi.ui.theme.BeerBoxTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier,
-    onSeatchText: (String) -> Unit = {}
+    onSearchText: (String) -> Unit = {}
 ) {
 
     var text by remember { mutableStateOf(TextFieldValue("")) }
@@ -46,7 +45,8 @@ fun SearchBar(
             },
             value = text,
             onValueChange = { newText ->
-                text = newTextonSeatchText.invoke(newText.text)
+                text = newText
+                onSearchText.invoke(newText.text)
             })
 
     }

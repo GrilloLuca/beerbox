@@ -46,20 +46,17 @@ fun HomeScreen(
     viewModel: BeersViewModel = viewModel(),
 ) {
     val beers = viewModel.beerFlow.collectAsLazyPagingItems()
-    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = modifier.padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
 
-        SearchBar(onSeatchText = viewModel::searchBeer)
+        SearchBar(onSearchText = viewModel::searchBeer)
 
         PromoBanner()
 
-        FilterRow(
-            onClick = viewModel::searchBeer
-        )
+        FilterRow(onClick = viewModel::searchBeer)
 
         Box(modifier = Modifier.fillMaxSize()) {
             when (beers.loadState.refresh) {
@@ -67,9 +64,7 @@ fun HomeScreen(
                 is LoadState.Loading -> Loader()
                 is LoadState.Error -> LoadError()
                 else -> BeerList(beers = beers) { beer ->
-                    coroutineScope.launch {
-                        //  bottomSheetState.expand()
-                    }
+
                 }
 
             }
