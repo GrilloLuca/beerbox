@@ -33,6 +33,7 @@ import com.example.punkapi.ui.BeerItemPreview
 import com.example.punkapi.ui.designsystem.atoms.LoadError
 import com.example.punkapi.ui.designsystem.atoms.Loader
 import com.example.punkapi.ui.designsystem.molecules.BeerList
+import com.example.punkapi.ui.designsystem.molecules.FilterRow
 import com.example.punkapi.ui.designsystem.molecules.PromoBanner
 import com.example.punkapi.ui.designsystem.molecules.SearchBar
 import com.example.punkapi.ui.theme.BeerBoxTheme
@@ -49,28 +50,29 @@ fun HomeScreen(
 
     Column(
         modifier = modifier.padding(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
 
         SearchBar(onSeatchText = viewModel::searchBeer)
 
         PromoBanner()
 
+        FilterRow(
+            onClick = viewModel::searchBeer
+        )
+
         Box(modifier = Modifier.fillMaxSize()) {
             when (beers.loadState.refresh) {
-                is LoadState.Loading -> Loader(
-                    modifier = Modifier.align(Alignment.Center)
-                )
-                is LoadState.Error -> LoadError(
-                    modifier = Modifier.align(Alignment.Center)
-                )
-                else -> BeerList(beers = beers) { beer ->
-//                    coroutineScope.launch {
-//                            bottomSheetState.expand()
-//                    }
-                }
-            }
 
+                is LoadState.Loading -> Loader()
+                is LoadState.Error -> LoadError()
+                else -> BeerList(beers = beers) { beer ->
+                    coroutineScope.launch {
+                        //  bottomSheetState.expand()
+                    }
+                }
+
+            }
         }
     }
 

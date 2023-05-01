@@ -46,8 +46,7 @@ fun SearchBar(
             },
             value = text,
             onValueChange = { newText ->
-                text = newText
-                onSeatchText.invoke(newText.text)
+                text = newTextonSeatchText.invoke(newText.text)
             })
 
     }

@@ -1,5 +1,6 @@
 package com.example.punkapi.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -13,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,12 +26,16 @@ class BeersViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val searchFlow: MutableStateFlow<String> = MutableStateFlow("")
+
     /**
      * flow a new Pager everytime the searchFlow emit a new search
      */
     private val _beerFlow: Flow<PagingData<Beer>> = searchFlow.flatMapLatest { search ->
         Pager(
-            config = PagingConfig(pageSize = 25),
+            config = PagingConfig(
+                pageSize = 25,
+                initialLoadSize = 25,
+            ),
             pagingSourceFactory = {
                 PagingDataSource(repo, search)
             }
