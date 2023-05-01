@@ -23,7 +23,8 @@ import com.example.punkapi.ui.theme.BeerBoxTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onSeatchText: (String) -> Unit = {}
 ) {
 
     var text by remember { mutableStateOf(TextFieldValue("")) }
@@ -44,11 +45,9 @@ fun SearchBar(
                 )
             },
             value = text,
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color.Transparent
-            ),
             onValueChange = { newText ->
                 text = newText
+                onSeatchText.invoke(newText.text)
             })
 
     }

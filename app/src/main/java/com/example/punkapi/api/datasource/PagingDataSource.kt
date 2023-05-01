@@ -8,7 +8,10 @@ import com.example.punkapi.models.Beer
 
 const val STARTING_PAGE_INDEX = 1
 
-class PagingDataSource(private val repo: RepositoryContract): PagingSource<Int, Beer>() {
+class PagingDataSource(
+    private val repo: RepositoryContract,
+    private val beerName: String
+    ): PagingSource<Int, Beer>() {
 
     override fun getRefreshKey(state: PagingState<Int, Beer>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -20,8 +23,7 @@ class PagingDataSource(private val repo: RepositoryContract): PagingSource<Int, 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Beer> {
         val position = params.key ?: STARTING_PAGE_INDEX
 
-        //Retrofit will automatically make suspend functions main-safe so you can call them directly from Dispatchers.Main
-        return when (val result = repo.getBeers(position, params.loadSize)) {
+        return when (val result = repo.getBeers(position, params.loadSize, beerName)) {
 
             is Resource.Error -> LoadResult.Error(Exception(result.error.toString()))
             is Resource.Success -> {

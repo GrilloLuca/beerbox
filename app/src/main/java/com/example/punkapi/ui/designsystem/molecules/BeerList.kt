@@ -17,8 +17,9 @@ import com.example.punkapi.models.Beer
 fun BeerList(
     modifier: Modifier = Modifier,
     beers: LazyPagingItems<Beer>,
+    onClickBeer: (Beer) -> Unit = {}
 ) {
-    
+
     val listState = rememberLazyListState()
 
     LazyColumn(
@@ -29,7 +30,10 @@ fun BeerList(
 
         items(beers) { beer ->
             beer?.let {
-                BeerItem(beer = beer)
+                BeerItem(
+                    beer = beer,
+                    onClickBeer = onClickBeer
+                )
                 Divider(color = MaterialTheme.colorScheme.tertiary)
             }
         }

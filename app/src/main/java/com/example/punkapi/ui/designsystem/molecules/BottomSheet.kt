@@ -1,6 +1,5 @@
 package com.example.punkapi.ui.designsystem.molecules
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -28,20 +27,13 @@ import com.example.punkapi.ui.BeerItemPreview
 import com.example.punkapi.ui.theme.BeerBoxTheme
 
 @Composable
-fun BeerItem(
-    beer: Beer,
-    onClickBeer: (Beer) -> Unit = {}
-) {
+fun BottomSheet(beer: Beer) {
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .clickable {
-                onClickBeer.invoke(beer)
-            }
             .fillMaxWidth()
-            .padding(8.dp)
-            .height(IntrinsicSize.Max)
+            .padding(16.dp)
     ) {
 
         val model = ImageRequest.Builder(LocalContext.current)
@@ -54,8 +46,8 @@ fun BeerItem(
 
         AsyncImage(
             modifier = Modifier
-                .height(150.dp)
-                .weight(1f),
+                .height(IntrinsicSize.Max)
+                .weight(1.5f),
             model = model.build(),
             contentDescription = null
         )
@@ -73,7 +65,6 @@ fun BeerItem(
             )
             Text(
                 text = beer.tagline,
-                modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground
             )
@@ -81,13 +72,6 @@ fun BeerItem(
                 text = beer.description,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-            Text(
-                modifier = Modifier.padding(0.dp, 8.dp, 0.dp, 0.dp),
-                text = "MORE INFO",
-                color = MaterialTheme.colorScheme.primary
             )
         }
     }
@@ -95,10 +79,12 @@ fun BeerItem(
 
 @Preview
 @Composable
-private fun BeerItemPreview(
+fun BeerPreview(
     @PreviewParameter(BeerItemPreview::class) beers: List<Beer>
 ) {
     BeerBoxTheme() {
-        BeerItem(beers[0])
+        BottomSheet(
+            beer = beers[0]
+        )
     }
 }

@@ -11,7 +11,8 @@ interface PunkApi {
     @GET("v2/beers")
     suspend fun getBeers(
         @Query("page") page: Int,
-        @Query("per_page") per_page: Int,
+        @Query("per_page") perPage: Int,
+        @Query("beer_name") beerName: String? = null,
     ): Response<List<Beer>>
 
     companion object {

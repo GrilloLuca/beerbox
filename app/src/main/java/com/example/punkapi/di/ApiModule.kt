@@ -1,10 +1,13 @@
 package com.example.punkapi.di
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import com.example.punkapi.BuildConfig
 import com.example.punkapi.api.PunkApi
 import com.example.punkapi.api.datasource.PagingDataSource
 import com.example.punkapi.api.repo.BeersRepository
 import com.example.punkapi.api.repo.RepositoryContract
+import com.example.punkapi.models.Beer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,8 +27,16 @@ object ApiModule {
         return BeersRepository(api)
     }
 
-    @Provides
-    fun providePagingDataSource(repo: RepositoryContract): PagingDataSource {
-        return PagingDataSource(repo)
-    }
+//    @Provides
+//    fun providePager(repo: RepositoryContract): Pager<Int, Beer> {
+//        return Pager(
+//            config = PagingConfig(
+//                pageSize = 25,
+//                enablePlaceholders = true
+//            ),
+//            pagingSourceFactory = {
+//                PagingDataSource(repo)
+//            }
+//        )
+//    }
 }
