@@ -7,17 +7,23 @@ import javax.inject.Inject
 class BeersRepository @Inject constructor(private val api: PunkApi): RepositoryContract {
 
     override suspend fun getBeers(page: Int, size: Int, beerName: String): Resource<List<Beer>> {
-
-        val response = api.getBeers(
-            page = page,
-            perPage = size,
-            beerName = beerName.ifEmpty { null }
+        return kotlin.runCatching {
+            api.getBeers(
+                page = page,
+                perPage = size,
+                beerName = beerName.ifEmpty { null }
+            )
+        }.fold(
+            onSuccess = {
+                if(it.isSuccessful) {
+                    Resource.Success(it.body())
+                } else {
+                    Resource.Error(it.errorBody().toString())
+                }
+            },
+            onFailure = {
+                Resource.Error("")
+            }
         )
-
-        return if(response.isSuccessful) {
-            Resource.Success(response.body())
-        } else {
-            Resource.Error(response.errorBody())
-        }
     }
 }

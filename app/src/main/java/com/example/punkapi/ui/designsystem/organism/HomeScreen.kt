@@ -30,6 +30,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.punkapi.models.Beer
 import com.example.punkapi.ui.BeerItemPreview
+import com.example.punkapi.ui.designsystem.atoms.LoadError
 import com.example.punkapi.ui.designsystem.atoms.Loader
 import com.example.punkapi.ui.designsystem.molecules.BeerList
 import com.example.punkapi.ui.designsystem.molecules.PromoBanner
@@ -60,7 +61,9 @@ fun HomeScreen(
                 is LoadState.Loading -> Loader(
                     modifier = Modifier.align(Alignment.Center)
                 )
-
+                is LoadState.Error -> LoadError(
+                    modifier = Modifier.align(Alignment.Center)
+                )
                 else -> BeerList(beers = beers) { beer ->
 //                    coroutineScope.launch {
 //                            bottomSheetState.expand()
