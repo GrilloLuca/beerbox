@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -48,11 +49,15 @@ class BeersViewModel @Inject constructor(
         get() = _beerFlow
 
     fun searchBeer(text: String) {
-        searchText.value = text
+        viewModelScope.launch {
+            searchText.value = text
+        }
     }
 
     fun filterBeers(text: String) {
-        filterText.value = text
+        viewModelScope.launch {
+            filterText.value = text
+        }
     }
 
     companion object {
