@@ -45,6 +45,11 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: BeersViewModel = viewModel(),
 ) {
+    /**
+     * As MVVM architecture, the UI component observes the view model flow, by collecting as pagingItems
+     * The BeerList Component has been recomposed each time the beerFlow emits a new value
+     * the SearchBar and the FilterRow components calls a viewModel function for filtering the list
+     */
     val beers = viewModel.beerFlow.collectAsLazyPagingItems()
 
     Column(
@@ -60,13 +65,9 @@ fun HomeScreen(
 
         Box(modifier = Modifier.fillMaxSize()) {
             when (beers.loadState.refresh) {
-
                 is LoadState.Loading -> Loader()
                 is LoadState.Error -> LoadError()
-                else -> BeerList(beers = beers) { beer ->
-
-                }
-
+                else -> BeerList(beers = beers)
             }
         }
     }
