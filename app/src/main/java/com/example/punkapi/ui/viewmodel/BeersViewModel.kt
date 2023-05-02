@@ -2,12 +2,9 @@ package com.example.punkapi.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.punkapi.api.datasource.PagingDataSource
-import com.example.punkapi.api.repo.RepositoryContract
+import com.example.punkapi.api.usecase.GetBeerPageUseCase
 import com.example.punkapi.models.Beer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,7 +18,7 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class BeersViewModel @Inject constructor(
-    repo: RepositoryContract
+    useCase: GetBeerPageUseCase
 ) : ViewModel() {
 
     private val searchText = MutableStateFlow("")
@@ -31,18 +28,11 @@ class BeersViewModel @Inject constructor(
      * Combine 2 flow for search and filter inputs.
      * Flow a new Pager everytime the combined flow emit a new search
      */
-    private val _beerFlow: Flow<PagingData<Beer>> = searchText
-        .combine(filterText) { search, filter -> "$search $filter" }
-        .flatMapLatest { search ->
-            Pager(
-                config = PagingConfig(
-                    pageSize = PAGE_SIZE,
-                    initialLoadSize = PAGE_SIZE,
-                ),
-                pagingSourceFactory = {
-                    PagingDataSource(repo, search)
-                }
-            ).flow
+    private val _beerFlow: Flow<PagingData<Beer>> =
+        searchText.combine(filterText) { search, filter ->
+            "$search $filter"
+        }.flatMapLatest {
+            useCase.execute(it)
         }.cachedIn(viewModelScope)
 
     val beerFlow: Flow<PagingData<Beer>>
@@ -60,7 +50,4 @@ class BeersViewModel @Inject constructor(
         }
     }
 
-    companion object {
-        const val PAGE_SIZE: Int = 25
-    }
 }

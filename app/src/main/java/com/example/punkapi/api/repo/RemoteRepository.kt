@@ -4,7 +4,7 @@ import com.example.punkapi.api.PunkApi
 import com.example.punkapi.models.Beer
 import javax.inject.Inject
 
-class BeersRepository @Inject constructor(private val api: PunkApi): RepositoryContract {
+class RemoteRepository @Inject constructor(private val api: PunkApi): RepositoryContract {
 
     override suspend fun getBeers(page: Int, size: Int, beerName: String): Resource<List<Beer>> {
         return kotlin.runCatching {
