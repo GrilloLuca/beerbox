@@ -56,7 +56,7 @@ fun HomeScreen(
 
         PromoBanner()
 
-        FilterRow(onClick = viewModel::searchBeer)
+        FilterRow(onSearchText = viewModel::filterBeers)
 
         Box(modifier = Modifier.fillMaxSize()) {
             when (beers.loadState.refresh) {

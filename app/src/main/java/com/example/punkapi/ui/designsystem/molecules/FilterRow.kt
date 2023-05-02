@@ -17,7 +17,7 @@ import com.example.punkapi.ui.theme.BeerBoxTheme
 @Composable
 fun FilterRow(
     modifier: Modifier = Modifier,
-    onClick: (String) -> Unit = {}
+    onSearchText: (String) -> Unit = {}
 ) {
     val filters = listOf("Stout", "Lager", "Pilsner", "Ipa", "Porter", "Ale")
 
@@ -34,7 +34,7 @@ fun FilterRow(
                 selected = selected == idx
             ) {
                 selected = if(selected == idx) null else idx
-                onClick.invoke(if(selected == null) "" else filter)
+                onSearchText.invoke(if(selected == null) "" else filter)
             }
         }
     }

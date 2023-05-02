@@ -34,6 +34,7 @@ fun SearchBar(
 
         TextField(
             modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
             placeholder = {
                 Text(text = "Search")
             },
