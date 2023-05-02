@@ -25,14 +25,17 @@ class BeersViewModel @Inject constructor(
     private val filterText = MutableStateFlow("")
 
     /**
-     * Combine 2 flow for search and filter inputs.
+     * Following the Clean Architecture design pattern, UseCases helps to separate business logic and makes the app more testable.
+     * The GetBeerPageUseCase has been injected from hilt in the ViewModel
+     *
+     * Combine 2 flow for search and filter inputs and executing the UseCase with the result.
      * Flow a new Pager everytime the combined flow emit a new search
      */
     private val _beerFlow: Flow<PagingData<Beer>> =
         searchText.combine(filterText) { search, filter ->
             "$search $filter"
-        }.flatMapLatest {
-            useCase.execute(it)
+        }.flatMapLatest { search ->
+            useCase.execute(search)
         }.cachedIn(viewModelScope)
 
     val beerFlow: Flow<PagingData<Beer>>
