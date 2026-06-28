@@ -1,27 +1,17 @@
 package com.example.punkapi
 
-import android.util.Log
-import androidx.paging.flatMap
-import androidx.paging.map
 import androidx.paging.testing.asSnapshot
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.punkapi.api.PunkApi
-import com.example.punkapi.api.repo.RemoteRepository
+import androidx.test.platform.app.InstrumentationRegistry
 import com.example.punkapi.api.repo.RepositoryContract
 import com.example.punkapi.api.repo.Resource
 import com.example.punkapi.api.usecase.GetBeerPageUseCase
 import com.example.punkapi.models.Beer
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.count
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
-
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
-import java.lang.Exception
 
 /**
  * Instrumented test, which will execute on an Android device.

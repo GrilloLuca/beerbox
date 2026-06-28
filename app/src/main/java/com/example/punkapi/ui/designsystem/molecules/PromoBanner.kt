@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -25,9 +26,13 @@ import androidx.compose.ui.unit.dp
 import com.example.punkapi.R
 import com.example.punkapi.ui.theme.BeerBoxTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PromoBanner() {
+fun PromoBanner(
+    onclick: () -> Unit = {}
+) {
     Card(
+        onClick = onclick,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.primary,
         ),

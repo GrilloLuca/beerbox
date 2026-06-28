@@ -31,12 +31,11 @@ class BeersViewModel @Inject constructor(
      * Combine 2 flow for search and filter inputs and executing the UseCase with the result.
      * Flow a new Pager everytime the combined flow emit a new search
      */
-    private val _beerFlow: Flow<PagingData<Beer>> =
-        searchText.combine(filterText) { search, filter ->
+    private val _beerFlow: Flow<PagingData<Beer>> = searchText
+        .combine(filterText) { search, filter ->
             "$search $filter"
-        }.flatMapLatest { search ->
-            useCase.execute(search)
-        }.cachedIn(viewModelScope)
+        }.flatMapLatest(useCase::execute)
+        .cachedIn(viewModelScope)
 
     val beerFlow: Flow<PagingData<Beer>>
         get() = _beerFlow

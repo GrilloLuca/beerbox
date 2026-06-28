@@ -1,3 +1,9 @@
 <resources>
+
     <string name="app_name">PunkApi</string>
+    <string name="title_dynamicfeature">Promo</string>
+    <string name="title_activity_promo">PromoActivity</string>
+
+    <string name="label_promo">A simple new promo</string>
+
 </resources>

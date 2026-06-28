@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.items
+import androidx.paging.compose.itemKey
 import com.example.punkapi.models.Beer
 
 @Composable
@@ -28,8 +28,11 @@ fun BeerList(
         state = listState
     ) {
 
-        items(beers) { beer ->
-            beer?.let {
+        items(
+            count = beers.itemCount,
+            key = beers.itemKey { it.id }
+        ) { index ->
+            beers[index]?.let { beer ->
                 BeerItem(
                     beer = beer,
                     onClickBeer = onClickBeer

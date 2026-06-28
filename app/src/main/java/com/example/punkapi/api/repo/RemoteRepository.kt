@@ -2,6 +2,7 @@ package com.example.punkapi.api.repo
 
 import com.example.punkapi.api.PunkApi
 import com.example.punkapi.models.Beer
+import com.example.punkapi.models.BeerDetail
 import javax.inject.Inject
 
 class RemoteRepository @Inject constructor(private val api: PunkApi): RepositoryContract {
@@ -16,6 +17,23 @@ class RemoteRepository @Inject constructor(private val api: PunkApi): Repository
         }.fold(
             onSuccess = {
                 if(it.isSuccessful) {
+                    Resource.Success(it.body())
+                } else {
+                    Resource.Error(it.errorBody().toString())
+                }
+            },
+            onFailure = {
+                Resource.Error("")
+            }
+        )
+    }
+
+    override suspend fun getBeer(id: Int): Resource<BeerDetail> {
+        return kotlin.runCatching {
+            api.getBeer(id)
+        }.fold(
+            onSuccess = {
+                if (it.isSuccessful) {
                     Resource.Success(it.body())
                 } else {
                     Resource.Error(it.errorBody().toString())

@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.punkapi.navigation.AppNavGraph
 import com.example.punkapi.ui.designsystem.molecules.AppTopBar
-import com.example.punkapi.ui.designsystem.organism.HomeScreen
 import com.example.punkapi.ui.theme.BeerBoxTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,21 +21,20 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             BeerBoxTheme {
-
                 Scaffold(
                     topBar = {
                         AppTopBar(modifier = Modifier.padding(8.dp))
                     }
                 ) { padding ->
-
                     Box(modifier = Modifier.padding(padding)) {
-
-                        HomeScreen()
-
+                        AppNavGraph(onPromoClick = { startPromoActivity() })
                     }
                 }
-
             }
         }
+    }
+
+    private fun startPromoActivity() {
+        startActivity(intent)
     }
 }

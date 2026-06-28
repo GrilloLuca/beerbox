@@ -28,12 +28,12 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField("String", "PUNK_API_BASE_URL", "\"https://api.punkapi.com\"")
+            buildConfigField("String", "PUNK_API_BASE_URL", "\"https://punkapi-alxiw.amvera.io/v3/\"")
         }
         debug {
             minifyEnabled false
 
-            buildConfigField("String", "PUNK_API_BASE_URL", "\"https://api.punkapi.com\"")
+            buildConfigField("String", "PUNK_API_BASE_URL", "\"https://punkapi-alxiw.amvera.io/v3/\"")
         }
     }
     compileOptions {
@@ -55,6 +55,7 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    dynamicFeatures = [':dynamicfeature']
 }
 
 dependencies {
@@ -71,9 +72,9 @@ dependencies {
     implementation "androidx.compose.runtime:runtime-livedata"
     implementation 'androidx.compose.material3:material3:1.1.0-rc01'
     implementation 'androidx.paging:paging-common-ktx:3.1.1'
-    implementation 'androidx.paging:paging-compose:1.0.0-alpha18'
+    implementation 'androidx.paging:paging-compose:1.0.0-alpha19'
     // Test Paging implementation
-    implementation 'androidx.paging:paging-testing:3.2.0-alpha04'
+    implementation 'androidx.paging:paging-testing:3.2.0-alpha05'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
@@ -103,4 +104,8 @@ dependencies {
 
     // coroutines core for mutableStateFlow
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+
+    // Jetpack Navigation
+    implementation 'androidx.navigation:navigation-compose:2.5.3'
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 }

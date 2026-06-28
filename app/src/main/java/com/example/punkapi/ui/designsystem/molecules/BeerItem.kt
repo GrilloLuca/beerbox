@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
+import com.example.punkapi.BuildConfig
 import com.example.punkapi.models.Beer
 import com.example.punkapi.ui.BeerItemPreview
 import com.example.punkapi.ui.theme.BeerBoxTheme
@@ -45,9 +46,10 @@ fun BeerItem(
     ) {
 
         val model = ImageRequest.Builder(LocalContext.current)
-            .data(beer.image_url)
+            .data("${BuildConfig.PUNK_API_BASE_URL}images/${beer.image_url}")
             .crossfade(true)
-            .diskCacheKey("$beer.id")
+            .memoryCacheKey("${beer.image_url}")
+            .diskCacheKey("${beer.image_url}")
             .networkCachePolicy(CachePolicy.ENABLED)
             .diskCachePolicy(CachePolicy.ENABLED)
             .memoryCachePolicy(CachePolicy.ENABLED)
